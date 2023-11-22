@@ -1,16 +1,13 @@
-# This is a sample Python script.
+import pandas as pd
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# my file has coding UTF-16, so I point it like this
+wine_data = pd.read_csv('vivno_dataset.csv', encoding='UTF-16')
 
+print(wine_data.head()) # we use this to first of all understand whether
+# we have access to our data and also to see if the date is displayed correctly
+# (namely the first 5 lines)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+print(wine_data.info())  # my general info about dataset(number of rows and columns, data types..)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(wine_data.isnull().sum()) # This command displays the number of missing values in each column
+# the isnull() true -> for NaN false->for not NaN, sum() converts false to zero so in my case I don't have missing values
