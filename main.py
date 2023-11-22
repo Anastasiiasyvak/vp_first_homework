@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
+
 plt.switch_backend('TkAgg')  # for creating a window of our graphics
 
 # my file has coding UTF-16, so I point it like this
@@ -39,18 +41,72 @@ wine_data['ABV %'].fillna(wine_data['ABV %'].mean(), inplace=True)
 
 
 # bar chart
-wine_data['color_wine'].value_counts().plot(kind='bar', color=['skyblue', 'lightcoral']) # count our color_wine and realization of it
-plt.title('Distribution of Wine Colors') # the name
-plt.xlabel('Wine Color') # for x
-plt.ylabel('Count') # for y
+# wine_data['color_wine'].value_counts().plot(kind='bar', color=['skyblue', 'lightcoral']) # count our color_wine and realization of it
+# plt.title('Distribution of Wine Colors') # the name
+# plt.xlabel('Wine Color') # for x
+# plt.ylabel('Count') # for y
+#
+#
+# # adding annotations (text labels) to each column
+# for i, count in enumerate(wine_data['color_wine'].value_counts()):
+#     plt.text(i, count + 0.1, str(count), ha='center', va='bottom')
+#
+# plt.show() # creating and show this bar chart
 
 
-# adding annotations (text labels) to each column
-for i, count in enumerate(wine_data['color_wine'].value_counts()):
-    plt.text(i, count + 0.1, str(count), ha='center', va='bottom')
-
-plt.show() # creating and show this bar chart
 
 # line chart
 
+# plt.figure(figsize=(10, 6))  # the size of graphic
+# plt.plot(wine_data.groupby('color_wine')['Ratings'].mean(), marker='o', linestyle='-', color='purple')
+# plt.title('Average Ratings by Wine Color')
+# plt.xlabel('Wine Color')
+# plt.ylabel('Average Ratings')
+# plt.grid(True)  # adding a grid for better visibility
+#
+# # adding annotations for every dots
+# for i, rating in enumerate(wine_data.groupby('color_wine')['Ratings'].mean()):
+#     plt.text(i, rating + 0.05, round(rating, 2), ha='center', va='bottom', color='purple')
+#
+# plt.show()
 
+
+# # pie chart for wine color
+# plt.figure(figsize=(15, 8))  # Set the size of the figure
+#
+# # Distribution of wine colors
+# colors_wine = plt.cm.tab10(range(len(wine_data['color_wine'].unique())))  # Use a colormap for different colors
+# pie = wine_data['color_wine'].value_counts().plot.pie(autopct='', startangle=90, colors=colors_wine, labeldistance=1.15)
+#
+# # Add legend
+# plt.legend(bbox_to_anchor=(1, 0.5), loc='center left', labels=[f"{color} ({count:.1%})" for color, count in wine_data['color_wine'].value_counts().items()])
+#
+# # Remove labels for color segments
+# plt.ylabel('')
+#
+# # Set the title
+# plt.title('Distribution of Wine Colors')
+#
+# # Show the pie chart
+# plt.show()
+
+
+#bonus
+
+
+# Set the style of seaborn for better aesthetics
+sns.set(style="whitegrid")
+
+# Set the figure size
+plt.figure(figsize=(12, 6))
+
+# Create a distribution plot (histogram with kernel density estimate)
+sns.histplot(wine_data['ABV %'], kde=True, color='skyblue')
+
+# Set the title and labels
+plt.title('Distribution of Alcohol by Volume (ABV%)')
+plt.xlabel('ABV %')
+plt.ylabel('Frequency')
+
+# Show the plot
+plt.show()
